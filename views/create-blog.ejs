@@ -1,0 +1,48 @@
+<%- include('components/header') %>
+
+  <main class="container">
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Create New Blog Post</h1>
+      <a href="/" class="btn btn-back">← Back to Home</a>
+    </header>
+
+    <!-- Blog Form -->
+    <section class="form-section">
+      <% if (typeof error !=='undefined' ) { %>
+        <div class="alert alert-error">
+          <%= error %>
+        </div>
+        <% } %>
+
+          <form action="/blog" method="POST" enctype="multipart/form-data" class="blog-form">
+            <!-- Title -->
+            <div class="form-group">
+              <label for="title">Title *</label>
+              <input type="text" id="title" name="title" required placeholder="Enter blog title" class="form-control">
+            </div>
+
+            <!-- Cover Image -->
+            <div class="form-group">
+              <label for="coverImage">Cover Image (optional)</label>
+              <input type="file" id="coverImage" name="coverImage" accept="image/*" class="form-control">
+              <small>Accepted formats: JPG, PNG, WEBP (Max 5MB)</small>
+            </div>
+
+            <!-- Content -->
+            <div class="form-group">
+              <label for="content">Content *</label>
+              <textarea id="content" name="content" rows="20" required placeholder="Write your blog content here..."
+                class="form-control"></textarea>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button type="submit" class="btn btn-submit">Publish Post</button>
+              <a href="/" class="btn btn-cancel">Cancel</a>
+            </div>
+          </form>
+    </section>
+  </main>
+
+  <%- include('components/footer') %>

@@ -1,0 +1,98 @@
+/* General Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn-back { background: #ccc; color: #333; }
+.btn-create { background: #007bff; color: #fff; }
+.btn-submit { background: #28a745; color: #fff; }
+.btn-cancel { background: #dc3545; color: #fff; }
+
+.btn:hover { opacity: 0.8; }
+
+/* Form */
+.form-section {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+/* Alerts */
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* Blog Post */
+.blog-post {
+  margin-top: 2rem;
+}
+
+.post-header {
+  margin-bottom: 1.5rem;
+}
+
+.post-title {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.post-date {
+  color: #777;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container { padding: 1rem; }
+}

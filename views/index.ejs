@@ -1,0 +1,173 @@
+<%- include('components/header') %>
+
+<head>
+  <style>
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .page-header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    .btn-create {
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .btn-create:hover {
+      background-color: #2980b9;
+    }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* Blog Card */
+    .blog-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      background-color: #fff;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .blog-card a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    .blog-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .placeholder-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 180px;
+      background-color: #f0f0f0;
+      color: #888;
+      font-size: 1rem;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      margin: 0 0 5px;
+    }
+    .card-date {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pagination a {
+      padding: 8px 16px;
+      background-color: #3498db;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .pagination a:hover {
+      background-color: #2980b9;
+    }
+    .page-info {
+      font-weight: bold;
+    }
+
+    /* No posts message */
+    .no-posts {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .page-header {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<main class="container">
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>My Personal Blog</h1>
+    <a href="/blog" class="btn-create">Create New Post</a>
+  </header>
+
+  <!-- Blog Grid -->
+  <section class="blog-grid">
+    <% if(posts.length === 0) { %>
+      <p class="no-posts">No blog posts yet. <a href="/blog">Create one</a>!</p>
+    <% } else { %>
+      <% posts.forEach(post => { %>
+        <article class="blog-card">
+          <a href="/blog/<%= post.slug %>">
+            <% if(post.coverImage) { %>
+              <img src="<%= post.coverImage %>" alt="<%= post.title %>" class="blog-card-img">
+            <% } else { %>
+              <div class="placeholder-image">No Image</div>
+            <% } %>
+            <div class="card-content">
+              <h2 class="card-title"><%= post.title %></h2>
+              <time class="card-date"><%= new Date(post.createdAt).toLocaleDateString() %></time>
+            </div>
+          </a>
+        </article>
+      <% }) %>
+    <% } %>
+  </section>
+
+  <!-- Pagination -->
+  <% if(totalPages > 1) { %>
+    <nav class="pagination">
+      <% if(currentPage > 1) { %>
+        <a href="/?page=<%= currentPage - 1 %>">Previous</a>
+      <% } %>
+
+      <span class="page-info">Page <%= currentPage %> of <%= totalPages %></span>
+
+      <% if(currentPage < totalPages) { %>
+        <a href="/?page=<%= currentPage + 1 %>">Next</a>
+      <% } %>
+    </nav>
+  <% } %>
+</main>
+
+<%- include('components/footer') %>
