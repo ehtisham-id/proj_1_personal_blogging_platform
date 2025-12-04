@@ -124,11 +124,3 @@ Open http://localhost:3000 in your browser.
 - MIT (see `LICENSE` if present)
 
 ---
-
-If you want, I can also:
-- add screenshots or a demo GIF (attach images),
-- add a sample `.env.example` file, or
-- commit this `README.md` and run the app to verify startup.
-
-Tell me which of these you'd like me to do next.
-

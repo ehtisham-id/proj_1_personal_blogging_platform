@@ -3,24 +3,24 @@ const pino = require('pino');
 const logger = pino();
 
 exports.getHomePage = async (req, res) => {
-  try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = 12;
-    const skip = (page - 1) * limit;
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 12;
+        const skip = (page - 1) * limit;
 
-    const totalCount = await Post.countDocuments();
-    const posts = await Post.find()
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+        const totalCount = await Post.countDocuments();
+        const posts = await Post.find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
 
-    const totalPages = Math.ceil(totalCount / limit);
+        const totalPages = Math.ceil(totalCount / limit);
 
-    res.render('index', { posts, currentPage: page, totalPages });
-  } catch (err) {
-    console.error('Error loading home page:', err);
-    res.render('index', { posts: [], currentPage: 1, totalPages: 1 });
-  }
+        res.render('index', { posts, currentPage: page, totalPages });
+    } catch (err) {
+        console.error('Error loading home page:', err);
+        res.render('index', { posts: [], currentPage: 1, totalPages: 1 });
+    }
 };
 
 
@@ -30,16 +30,21 @@ exports.getCreateBlogForm = async (req, res) => {
 
 exports.getBlogBySlug = async (req, res) => {
     try {
-        const slug = req.params.slug;
+        const { slug } = req.params;
 
-        const post = Post.findOne({ slug });
-        if (!post) return res.status(404).send('Post not found');
+        const post = await Post.findOne({ slug });
+        if (!post) {
+            return res.status(404).render('404', { message: 'Post not found' });
+        }
+
+        // Render view-blog.ejs with the post data
         res.render('view-blog', { post });
     } catch (err) {
-        logger.logger('Error loading blog:', error);
-        res.status(500).send('Failed to load blog post');
+        console.error('Error fetching post:', err);
+        res.status(500).render('view-blog', { post: null, error: 'Something went wrong.' });
     }
-}
+};
+
 
 exports.createBlog = async (req, res) => {
     try {
