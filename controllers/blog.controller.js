@@ -1,6 +1,8 @@
 const Post = require('../models/Post.js');
 const pino = require('pino');
 const logger = pino();
+const path = require('path');
+const fs = require('fs');
 
 exports.getHomePage = async (req, res) => {
     try {
@@ -76,5 +78,32 @@ exports.createBlog = async (req, res) => {
         res.status(500).render('create-blog', {
             error: 'Failed to create blog post.'
         });
+    }
+}
+
+exports.deleteBlog = async (req, res) => {
+    try {
+        const postId = req.params.id;
+
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).send('Post not found');
+        }
+
+        if (post.coverImage) {
+            const imagePath = path.join(__dirname, '../public', post.coverImage);
+            logger.info(`Path is  : ${imagePath}`);
+
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath);
+            }
+        }
+        await Post.findByIdAndDelete(postId);
+        res.redirect('/');
+
+    } catch (error) {
+        logger.error(`Error deleting post: ${error}`);
+        res.status(500).send('Error deleting post');
     }
 }

@@ -15,23 +15,32 @@ A minimal, clean, and functional personal blog application built with Node.js, E
 
 ---
 
-**Libraries / Dependencies**
+**📦 Libraries / Dependencies**
 
-This project uses the following main libraries (from `package.json`):
+This project uses the following NPM packages:
 
-- `express` — web framework for Node.js (routing & middleware)
-- `ejs` — templating engine for server-rendered views
-- `mongoose` — MongoDB object modeling (ODM)
-- `multer` — multipart/form-data middleware for file uploads
-- `dotenv` — load environment variables from a `.env` file
-- `slugify` — create SEO-friendly slugs from post titles
-- `morgan` — HTTP request logger middleware
-- `cookie-parser` — parse cookies in requests
-- `http-errors` — create HTTP error objects for Express
-- `debug` — small debugging utility
-- `pino` — fast JSON logger
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `express` | ^4.22.1 | Web framework for Node.js (routing & middleware) |
+| `ejs` | ^3.1.10 | Templating engine for server-rendered views |
+| `mongoose` | ^9.0.0 | MongoDB object modeling (ODM) |
+| `multer` | ^2.0.2 | Multipart/form-data middleware for file uploads |
+| `method-override` | ^3.0.0 | Override HTTP methods (PUT, DELETE) in forms |
+| `dotenv` | ^17.2.3 | Load environment variables from `.env` file |
+| `slugify` | ^1.6.6 | Create SEO-friendly slugs from post titles |
+| `morgan` | ^1.10.1 | HTTP request logger middleware |
+| `pino` | ^10.1.0 | Fast JSON logger for Node.js |
+| `cookie-parser` | ~1.4.4 | Parse cookies in HTTP requests |
+| `http-errors` | ~1.6.3 | Create HTTP error objects for Express |
+| `debug` | ~2.6.9 | Small debugging utility |
 
-If you rely on any of these packages in production, check their documentation for hardening and best practices.
+**Install all dependencies:**
+
+```bash
+npm install
+```
+
+For production deployments, check each package's documentation for security best practices and configuration options.
 
 
 **Getting Started**
@@ -110,12 +119,6 @@ Open http://localhost:3000 in your browser.
 	- Unit tests for controllers and model logic.
 	- Integration tests for routes using `supertest` + a test runner.
 	- Upload edge-case tests for `upload.middleware`.
-
----
-
-**Contributing**
-
-- Fork this repo, create feature branches, add tests for new behavior, and open a PR.
 
 ---
 
